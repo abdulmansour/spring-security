@@ -17,17 +17,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth.inMemoryAuthentication()
                 .withUser(users.username("john").password("test123").roles("EMPLOYEE"))
-                .withUser(users.username("mary").password("test123").roles("MANAGER"))
-                .withUser(users.username("susan").password("test123").roles("ADMIN"));
+                .withUser(users.username("mary").password("test123").roles("EMPLOYEE","MANAGER"))
+                .withUser(users.username("susan").password("test123").roles("EMPLOYEE", "ADMIN"));
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated().and().formLogin()
+//        http.authorizeRequests().anyRequest().authenticated().and().formLogin()
+//                .loginPage("/showLoginPage")
+//                .loginProcessingUrl("/authenticateUser")
+//                .permitAll()
+//                .and()
+//                .logout().permitAll();
+
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()  // allow public access to home page
+                .antMatchers("/employees").hasRole("EMPLOYEE")
+                .antMatchers("/leaders/**").hasRole("MANAGER")
+                .antMatchers("/systems/**").hasRole("ADMIN")
+                .and()
+                .formLogin()
                 .loginPage("/showLoginPage")
                 .loginProcessingUrl("/authenticateUser")
                 .permitAll()
                 .and()
-                .logout().permitAll();
+                .logout()
+                .logoutSuccessUrl("/")  // after logout then redirect to landing page (root)
+                .permitAll();
     }
 }
