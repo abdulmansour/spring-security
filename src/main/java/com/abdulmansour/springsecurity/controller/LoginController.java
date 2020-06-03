@@ -9,11 +9,11 @@ public class LoginController {
 
     @GetMapping("/showLoginPage")
     public String showLoginPage() {
-        return "login";
+        return "fancy-login";
     }
 
-    @PostMapping("/authenticateUser")
-    public String authenticateUser() {
-        return null;
-    }
+//    @PostMapping("/authenticateUser")
+//    public String authenticateUser() {
+//        return null;
+//    }
 }
