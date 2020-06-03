@@ -12,8 +12,9 @@ public class LoginController {
         return "fancy-login";
     }
 
-//    @PostMapping("/authenticateUser")
-//    public String authenticateUser() {
-//        return null;
-//    }
+    @GetMapping("/access-denied")
+    public String accessDeniedPage() {
+        return "access-denied";
+    }
+
 }
