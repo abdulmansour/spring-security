@@ -1,4 +1,4 @@
-package com.abdulmansour.springsecurity;
+package com.abdulmansour.springsecurity.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
